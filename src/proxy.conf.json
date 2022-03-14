@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "http://tmhunt.com/",
+    "pathRewrite": {
+      "^/api/": ""
+    },
+    "secure": false,
+    "changeOrigin": true,    
+    "logLevel": "debug"
+  }
+}

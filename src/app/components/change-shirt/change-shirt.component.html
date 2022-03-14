@@ -1,0 +1,8 @@
+<button
+  mat-mini-fab
+  color="primary"
+  [disabled]="checkLength()"
+  [mat-dialog-close]="mode"
+>
+  <p>{{ mode == ">" ? ">" : "<" }}</p>
+</button>

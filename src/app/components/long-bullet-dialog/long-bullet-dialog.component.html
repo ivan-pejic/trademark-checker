@@ -1,0 +1,100 @@
+<div class="wrapper">
+  <div class="leftArrow">
+    <app-change-shirt [id]="data.id" [mode]="'<'"></app-change-shirt>
+  </div>
+  <div class="content">
+    <form class="example-form" #shirtForm="ngForm">
+      <h1>Shirt {{ data.id + 1 }}</h1>
+      <div class="imageWrapper" (click)="openDialog()">
+        <img [src]="data.image" *ngIf="data.image" />
+      </div>
+      <a [href]="data.link" target="_blank" *ngIf="data.link">Link</a>
+
+      <mat-slide-toggle
+        *ngIf="!data.isLong"
+        [(ngModel)]="data.isText"
+        name="isText"
+        color="primary"
+        >{{ data.isText === true ? "Text" : "Picture" }}</mat-slide-toggle
+      >
+      <div>
+        <h3>Brand:</h3>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>{{ data.brand.length }}/50</mat-label>
+          <textarea
+            name="brand"
+            ngModel
+            matInput
+            placeholder="Enter Brand"
+            cdkTextareaAutosize
+            cdkAutosizeMaxRows="1"
+            maxlength="256"
+            (focusout)="checkTrademark(data.brand, 0)"
+            [(ngModel)]="data.brand"
+          ></textarea>
+        </mat-form-field>
+        <p>{{ brandTrademark | json }}</p>
+
+        <h3>Title:</h3>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>{{ data.title.length }}/60</mat-label>
+          <textarea
+            name="title"
+            ngModel
+            matInput
+            placeholder="Enter Title"
+            cdkTextareaAutosize
+            cdkAutosizeMaxRows="1"
+            maxlength="256"
+            (focusout)="checkTrademark(data.title, 1)"
+            [(ngModel)]="data.title"
+          ></textarea>
+        </mat-form-field>
+        <p>{{ titleTrademark | json }}</p>
+
+        <h3>BP1:</h3>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>{{ data.bp1.length }}/256</mat-label>
+          <textarea
+            name="bp1"
+            ngModel
+            matInput
+            placeholder="Enter BP1"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="4"
+            cdkAutosizeMaxRows="4"
+            maxlength="356"
+            (focusout)="checkTrademark(data.bp1, 2)"
+            [(ngModel)]="data.bp1"
+          ></textarea>
+        </mat-form-field>
+        <p>{{ bp1Trademark | json }}</p>
+
+        <h3>BP2:</h3>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>{{ data.bp2.length }}/256</mat-label>
+          <textarea
+            name="bp2"
+            ngModel
+            matInput
+            placeholder="Enter BP2"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="4"
+            cdkAutosizeMaxRows="4"
+            maxlength="356"
+            (focusout)="checkTrademark(data.bp2, 3)"
+            [(ngModel)]="data.bp2"
+          ></textarea>
+        </mat-form-field>
+        <p>{{ bp2Trademark | json }}</p>
+      </div>
+    </form>
+  </div>
+  <div class="rightArrow">
+    <app-change-shirt [id]="data.id" [mode]="'>'"></app-change-shirt>
+  </div>
+</div>
+<!---<button mat-button (click)="checkTrademark(shirtForm.value)">
+  Search Trademarks
+</button>-->
+<!---<div>{{ trademark | json }}</div>-->

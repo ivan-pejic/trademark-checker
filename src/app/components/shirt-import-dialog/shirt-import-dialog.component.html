@@ -1,0 +1,45 @@
+<div class="wrapper">
+  <mat-tab-group [(selectedIndex)]="this.index">
+    <mat-tab label="Via Link">
+      <mat-form-field>
+        <mat-label>Via Links:</mat-label>
+        <textarea
+          matInput
+          ngModel
+          #links="ngModel"
+          placeholder="Insert Link(s)"
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="15"
+          cdkAutosizeMaxRows="15"
+        ></textarea>
+      </mat-form-field>
+    </mat-tab>
+    <mat-tab label="Via File">
+      Via Files:
+      <input type="file" multiple (change)="onImageSelected($event)" />
+    </mat-tab>
+  </mat-tab-group>
+  <mat-card-actions>
+    <ng-template
+      *ngIf="this.index == 0; then isLink; else isImage"
+    ></ng-template>
+    <ng-template #isLink>
+      <button
+        mat-raised-button
+        (click)="saveLinks(links?.value)"
+        [disabled]="!links.value"
+      >
+        Save
+      </button></ng-template
+    >
+    <ng-template #isImage>
+      <button
+        mat-raised-button
+        (click)="saveImages()"
+        [disabled]="!this.images"
+      >
+        Save
+      </button></ng-template
+    >
+  </mat-card-actions>
+</div>

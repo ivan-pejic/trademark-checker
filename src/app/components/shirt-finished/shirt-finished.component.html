@@ -1,0 +1,15 @@
+<ng-template *ngIf="this.finished; then done; else notDone"></ng-template>
+<ng-template #done>
+  <mat-icon matBadge="✓" matBadgeColor="primary" matBadgeOverlap="false"
+    >Shirt Finished</mat-icon
+  ></ng-template
+>
+<ng-template #notDone>
+  <mat-icon
+    matBadge="✕"
+    matBadgeColor="warn"
+    matBadgeOverlap="false"
+    matBadgeSize="small"
+    >Shirt Unfinished</mat-icon
+  ></ng-template
+>

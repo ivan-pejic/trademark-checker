@@ -1,0 +1,12 @@
+mat-card-title,
+mat-card-actions {
+  text-align: center;
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+mat-card {
+  width: 6.5rem;
+  margin: 2.5rem;
+  float: left;
+}

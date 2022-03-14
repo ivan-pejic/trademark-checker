@@ -1,0 +1,14 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 8rem;
+  height: 8rem;
+}
+
+button {
+  margin: 1rem;
+}
+
+.mat-slide-toggle {
+  width: 5rem;
+}

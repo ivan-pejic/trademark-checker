@@ -1,0 +1,16 @@
+<div class="footer">
+  <button mat-raised-button (click)="createNewShirtCard()">+</button>
+  <button mat-raised-button (click)="exportAsWord()">Export as .docx</button>
+  <button mat-raised-button (click)="openLinkImportDialog()">
+    Import Shirts
+  </button>
+
+  <mat-slide-toggle
+    [(ngModel)]="isLong"
+    (toggleChange)="setLong()"
+    color="primary"
+  >
+    {{ this.isLong === true ? "Long" : "Short" }}
+  </mat-slide-toggle>
+  <button mat-raised-button (click)="openLinkImportDialog()"></button>
+</div>

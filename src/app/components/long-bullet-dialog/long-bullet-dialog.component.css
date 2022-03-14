@@ -1,0 +1,41 @@
+mat-form-field {
+  width: 35rem;
+}
+
+mat-card-content {
+  margin: 2rem;
+}
+
+mat-card-title,
+mat-card-actions {
+  margin: 1rem;
+}
+mat-card {
+  margin: 2.5rem;
+}
+
+img {
+  width: 5rem;
+  height: 5rem;
+  background-color: lightgray;
+}
+img:hover {
+  cursor: pointer;
+}
+
+.leftArrow {
+  margin-top: 50%;
+  float: left;
+  margin-right: 1.5rem;
+}
+.content {
+  float: left;
+}
+.rightArrow {
+  margin-top: 50%;
+  float: left;
+  margin-left: 1.5rem;
+}
+.wrapper {
+  width: 43rem;
+}

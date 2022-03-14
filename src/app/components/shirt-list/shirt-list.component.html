@@ -1,0 +1,7 @@
+<mat-card *ngFor="let shirt of this.shirts">
+  <mat-card-title>Shirt {{ shirt.id + 1 }}</mat-card-title>
+  <app-shirt-finished [shirt]="shirt"></app-shirt-finished>
+  <mat-card-actions>
+    <button mat-raised-button (click)="openDialog(shirt.id)">Open</button>
+  </mat-card-actions>
+</mat-card>
