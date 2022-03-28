@@ -1,0 +1,10 @@
+<div>
+  <span
+    *ngFor="let tm of this.tms"
+    [ngClass]="{
+      yellow: tm == 'UNCHECKED',
+      green: tm == 'CHECK PASSED'
+    }"
+    >{{ tm }}</span
+  >
+</div>

@@ -1,0 +1,11 @@
+.wrapper {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 70rem;
+  max-height: 50rem;
+}
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+}

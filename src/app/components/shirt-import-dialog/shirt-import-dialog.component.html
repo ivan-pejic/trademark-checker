@@ -26,7 +26,7 @@
     <ng-template #isLink>
       <button
         mat-raised-button
-        (click)="saveLinks(links?.value)"
+        (click)="saveLinks(links.value)"
         [disabled]="!links.value"
       >
         Save
@@ -36,7 +36,7 @@
       <button
         mat-raised-button
         (click)="saveImages()"
-        [disabled]="!this.images"
+        [disabled]="!this.images.length"
       >
         Save
       </button></ng-template

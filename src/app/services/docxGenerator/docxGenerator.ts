@@ -3,7 +3,7 @@ import { ShirtForm } from 'src/app/interfaces/shirt-form';
 
 export class DocumentCreator {
   public create(saveShirts: ShirtForm[]): Document {
-    let doc = new Paragraph({});
+    let doc = new Paragraph({ style: 'Calibri' });
 
     for (let shirt of saveShirts) {
       doc.addChildElement(this.createShirtBullet(shirt));
@@ -11,13 +11,19 @@ export class DocumentCreator {
 
     const document = new Document({
       styles: {
-        default: {
-          listParagraph: {
+        paragraphStyles: [
+          {
+            id: 'Calibri',
+            name: 'Calibri',
             run: {
               font: 'Calibri',
+              size: 22,
+            },
+            paragraph: {
+              spacing: { after: 160 },
             },
           },
-        },
+        ],
       },
 
       sections: [
@@ -91,28 +97,40 @@ export class DocumentCreator {
   }
 
   description(shirt: ShirtForm) {
-    var BpArray: string[] = shirt.bp2.split(' ');
-
+    var BpArray: string[] = [];
     var topDescription: string = '';
     var bottomDescription: string = '';
-    var isTop: boolean = true;
-    for (let i = 1; i < BpArray.length; i++) {
-      if (BpArray[i] != 'is' && isTop === true)
-        topDescription = topDescription + BpArray[i] + ' ';
-      else {
-        isTop = false;
-        if (BpArray[i] != 'is')
-          bottomDescription = bottomDescription + BpArray[i] + ' ';
+
+    if (shirt.bp2 == '') {
+      return [
+        new TextRun({ text: 'shirt empty', break: 1 }),
+        new TextRun({ text: 'shirt empty', break: 1 }),
+      ];
+    } else {
+      BpArray = shirt.bp2.split(' ');
+
+      var isTop: boolean = true;
+      for (let i = 1; i < BpArray.length; i++) {
+        if (BpArray[i] != 'is' && isTop === true)
+          topDescription = topDescription + BpArray[i] + ' ';
+        else {
+          isTop = false;
+          if (BpArray[i] != 'is')
+            bottomDescription = bottomDescription + BpArray[i] + ' ';
+        }
       }
+
+      topDescription = topDescription + this.isText(shirt) + shirt.bp1 + " '";
+      bottomDescription =
+        bottomDescription[0].toUpperCase() + bottomDescription.slice(1);
+      topDescription =
+        topDescription[0].toUpperCase() + topDescription.slice(1);
+
+      return [
+        new TextRun({ text: topDescription, break: 1 }),
+        new TextRun({ text: bottomDescription, break: 1 }),
+      ];
     }
-    topDescription = topDescription + this.isText(shirt) + shirt.bp1 + " '";
-    bottomDescription =
-      bottomDescription[0].toUpperCase() + bottomDescription.slice(1);
-    topDescription = topDescription[0].toUpperCase() + topDescription.slice(1);
-    return [
-      new TextRun({ text: topDescription, break: 1 }),
-      new TextRun({ text: bottomDescription, break: 1 }),
-    ];
   }
 
   isText(shirt: ShirtForm): string {

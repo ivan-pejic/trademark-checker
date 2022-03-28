@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, DoCheck } from '@angular/core';
 import { ShirtForm } from 'src/app/interfaces/shirt-form';
 
 @Component({
@@ -6,13 +6,14 @@ import { ShirtForm } from 'src/app/interfaces/shirt-form';
   templateUrl: './shirt-finished.component.html',
   styleUrls: ['./shirt-finished.component.css'],
 })
-export class ShirtFinishedComponent implements OnInit {
+export class ShirtFinishedComponent implements DoCheck {
   constructor() {}
 
   @Input() shirt!: ShirtForm;
-  ngOnInit(): void {
+  ngDoCheck() {
     this.setFinished();
   }
+
   finished: boolean = false;
 
   setFinished() {

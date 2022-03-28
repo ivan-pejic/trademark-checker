@@ -1,0 +1,22 @@
+div span.yellow {
+  background-color: #d9d946;
+}
+
+div span.green {
+  background-color: green;
+}
+
+div {
+  display: flex;
+  text-align: center;
+}
+div span {
+  display: flex;
+  color: white;
+  font-weight: bold;
+  background-color: rgb(194, 49, 49);
+  border-radius: 0.4em;
+  padding: 0 0.8em;
+  float: left;
+  margin-right: 0.8em;
+}

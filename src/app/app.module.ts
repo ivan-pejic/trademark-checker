@@ -21,6 +21,8 @@ import { OptionsListComponent } from './components/options-list/options-list.com
 import { ShirtImportDialogComponent } from './components/shirt-import-dialog/shirt-import-dialog.component';
 import { ShirtFinishedComponent } from './components/shirt-finished/shirt-finished.component';
 import { ChangeShirtComponent } from './components/change-shirt/change-shirt.component';
+import { ImageZoomComponent } from './components/image-zoom/image-zoom.component';
+import { TmCheckBadgeComponent } from './components/tm-check-badge/tm-check-badge.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { ChangeShirtComponent } from './components/change-shirt/change-shirt.com
     ShirtImportDialogComponent,
     ShirtFinishedComponent,
     ChangeShirtComponent,
+    ImageZoomComponent,
+    TmCheckBadgeComponent,
   ],
   imports: [
     BrowserModule,

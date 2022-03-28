@@ -28,6 +28,22 @@ export class ShirtService {
     ),
   };
 
+  changeType(id: number) {
+    this.shirtList[id].isLong = !this.shirtList[id].isLong;
+    this.generateBullets(id);
+  }
+
+  generateBullets(id: number) {
+    if (this.shirtList[id].isLong) {
+      const rndInt = Math.floor(Math.random() * 9) + 1;
+      this.shirtList[id].bp1 = this.templateList[rndInt].bp1;
+      this.shirtList[id].bp2 = this.templateList[rndInt].bp2;
+    } else {
+      this.shirtList[id].bp1 = '';
+      this.shirtList[id].bp2 = this.shortTemplate;
+    }
+  }
+
   //check if current query has any registered trademarks
   checkTrademark(query: string): any {
     //replace all dots(.) with spaces to find all trademarks
@@ -73,24 +89,20 @@ export class ShirtService {
 
   //add new empty shirt to array and let listeners know its there
   createShirt(isLong: boolean) {
-    var tempBp1: string = '';
-    var tempBp2: string = '';
-
-    if (isLong) {
-      const rndInt = Math.floor(Math.random() * 9) + 1;
-      tempBp1 = this.templateList[rndInt].bp1;
-      tempBp2 = this.templateList[rndInt].bp2;
-    } else tempBp2 = this.shortTemplate;
-
     this.shirtList.push({
       id: this.shirtList.length,
       title: '',
       brand: '',
-      bp1: tempBp1,
-      bp2: tempBp2,
+      bp1: '',
+      bp2: '',
       isLong: isLong,
       isText: true,
+      tmBrand: ['UNCHECKED'],
+      tmTitle: ['UNCHECKED'],
+      tmBp1: ['UNCHECKED'],
+      tmBp2: ['UNCHECKED'],
     });
+    this.generateBullets(this.shirtList.length - 1);
     this.shirtSubject.next(this.shirtList);
   }
 
@@ -117,6 +129,7 @@ export class ShirtService {
 
   //regex to capitalise word
   toUpperCase(query: string): string {
+    //(^\w)|(\s+\w)
     return query.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
       letter.toUpperCase()
     );
@@ -135,6 +148,17 @@ export class ShirtService {
     Packer.toBlob(doc).then((buffer) => {
       fs.saveAs(buffer, formatDate(new Date(), 'ddMMYY', 'en'));
     });
+
+    const longShirts = this.shirtList.filter(
+      (shirt) => shirt.isLong == true
+    ).length;
+
+    alert(
+      'Long shirts: ' +
+        longShirts +
+        '\nShort shirts: ' +
+        (this.shirtList.length - longShirts)
+    );
   }
 
   //temporary local shirt templates

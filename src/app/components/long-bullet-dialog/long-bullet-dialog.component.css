@@ -39,3 +39,7 @@ img:hover {
 .wrapper {
   width: 43rem;
 }
+
+button {
+  margin-top: 1em;
+}

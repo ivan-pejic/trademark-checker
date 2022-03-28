@@ -4,13 +4,14 @@ import { ShirtForm } from 'src/app/interfaces/shirt-form';
 import { ShirtService } from 'src/app/services/shirt.service';
 
 import { MatDialog } from '@angular/material/dialog';
+import { ImageZoomComponent } from '../image-zoom/image-zoom.component';
 
 @Component({
   selector: 'app-long-bullet-dialog',
   templateUrl: './long-bullet-dialog.component.html',
   styleUrls: ['./long-bullet-dialog.component.css'],
 })
-export class LongBulletDialogComponent implements OnInit, OnDestroy {
+export class LongBulletDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ShirtForm,
     private shirtService: ShirtService,
@@ -18,31 +19,40 @@ export class LongBulletDialogComponent implements OnInit, OnDestroy {
     public dialog: MatDialog
   ) {}
 
-  //trademarks!: any[];
-  brandTrademark: any[] = ['UNCHECKED'];
-  titleTrademark: any[] = ['UNCHECKED'];
-  bp1Trademark: any[] = ['UNCHECKED'];
-  bp2Trademark: any[] = ['UNCHECKED'];
+  clone = Object.assign({}, this.data);
 
-  ngOnInit(): void {}
-  ngOnDestroy(): void {
-    this.shirtService.saveShirt(this.data);
-  }
-
-  checkTrademark(query: string, array: number) {
+  checkTrademark(query: string, e: Event) {
     this.upperCaseTitleAndBrand();
 
-    if (typeof query !== 'undefined' && query.length > 0) {
-      if (array == 0) {
-        this.brandTrademark = this.shirtService.checkTrademark(query);
-      } else if (array == 1) {
-        this.titleTrademark = this.shirtService.checkTrademark(query);
-      } else if (array == 2) {
-        this.bp1Trademark = this.shirtService.checkTrademark(query);
-      } else if (array == 3) {
-        this.bp2Trademark = this.shirtService.checkTrademark(query);
+    if ((<HTMLTextAreaElement>e.target).name == 'brand') {
+      if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
+      else if (this.clone.brand != this.data.brand) {
+        this.data.tmBrand = this.shirtService.checkTrademark(query);
+        this.clone.brand = this.data.brand;
+      }
+    } else if ((<HTMLTextAreaElement>e.target).name == 'title') {
+      if (query.length == 0) this.data.tmTitle = ['UNCHECKED'];
+      else if (this.clone.title != this.data.title) {
+        this.data.tmTitle = this.shirtService.checkTrademark(query);
+        this.clone.title = this.data.title;
+      }
+    } else if ((<HTMLTextAreaElement>e.target).name == 'bp1') {
+      if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
+      else if (this.clone.bp1 != this.data.bp1) {
+        this.data.tmBp1 = this.shirtService.checkTrademark(query);
+        this.clone.bp1 = this.data.bp1;
+      }
+    } else if ((<HTMLTextAreaElement>e.target).name == 'bp2') {
+      if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
+      else if (this.clone.bp2 != this.data.bp2) {
+        this.data.tmBp2 = this.shirtService.checkTrademark(query);
+        this.clone.bp2 = this.data.bp2;
       }
     }
+  }
+
+  changeType() {
+    this.shirtService.changeType(this.data.id);
   }
 
   checkLength(query: string): boolean {
@@ -58,8 +68,7 @@ export class LongBulletDialogComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
-    console.log('aaa');
-    this.dialog.open(LongBulletDialogComponent, {
+    this.dialog.open(ImageZoomComponent, {
       data: this.data,
     });
   }

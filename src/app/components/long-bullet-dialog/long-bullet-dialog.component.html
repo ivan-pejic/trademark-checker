@@ -10,13 +10,14 @@
       </div>
       <a [href]="data.link" target="_blank" *ngIf="data.link">Link</a>
 
-      <mat-slide-toggle
-        *ngIf="!data.isLong"
-        [(ngModel)]="data.isText"
-        name="isText"
-        color="primary"
-        >{{ data.isText === true ? "Text" : "Picture" }}</mat-slide-toggle
-      >
+      <div *ngIf="!data.isLong">
+        <mat-slide-toggle
+          [(ngModel)]="data.isText"
+          name="isText"
+          color="primary"
+          >{{ data.isText === true ? "Text" : "Picture" }}</mat-slide-toggle
+        >
+      </div>
       <div>
         <h3>Brand:</h3>
         <mat-form-field class="example-full-width" appearance="fill">
@@ -29,11 +30,11 @@
             cdkTextareaAutosize
             cdkAutosizeMaxRows="1"
             maxlength="256"
-            (focusout)="checkTrademark(data.brand, 0)"
+            (focusout)="checkTrademark(data.brand, $event)"
             [(ngModel)]="data.brand"
           ></textarea>
         </mat-form-field>
-        <p>{{ brandTrademark | json }}</p>
+        <app-tm-check-badge [tms]="data.tmBrand"></app-tm-check-badge>
 
         <h3>Title:</h3>
         <mat-form-field class="example-full-width" appearance="fill">
@@ -46,11 +47,11 @@
             cdkTextareaAutosize
             cdkAutosizeMaxRows="1"
             maxlength="256"
-            (focusout)="checkTrademark(data.title, 1)"
+            (focusout)="checkTrademark(data.title, $event)"
             [(ngModel)]="data.title"
           ></textarea>
         </mat-form-field>
-        <p>{{ titleTrademark | json }}</p>
+        <app-tm-check-badge [tms]="data.tmTitle"></app-tm-check-badge>
 
         <h3>BP1:</h3>
         <mat-form-field class="example-full-width" appearance="fill">
@@ -64,11 +65,11 @@
             cdkAutosizeMinRows="4"
             cdkAutosizeMaxRows="4"
             maxlength="356"
-            (focusout)="checkTrademark(data.bp1, 2)"
+            (focusout)="checkTrademark(data.bp1, $event)"
             [(ngModel)]="data.bp1"
           ></textarea>
         </mat-form-field>
-        <p>{{ bp1Trademark | json }}</p>
+        <app-tm-check-badge [tms]="data.tmBp1"></app-tm-check-badge>
 
         <h3>BP2:</h3>
         <mat-form-field class="example-full-width" appearance="fill">
@@ -82,13 +83,16 @@
             cdkAutosizeMinRows="4"
             cdkAutosizeMaxRows="4"
             maxlength="356"
-            (focusout)="checkTrademark(data.bp2, 3)"
+            (focusout)="checkTrademark(data.bp2, $event)"
             [(ngModel)]="data.bp2"
           ></textarea>
         </mat-form-field>
-        <p>{{ bp2Trademark | json }}</p>
+        <app-tm-check-badge [tms]="data.tmBp2"></app-tm-check-badge>
       </div>
     </form>
+    <button mat-raised-button color="accent" (click)="changeType()">
+      Change Shirt Type
+    </button>
   </div>
   <div class="rightArrow">
     <app-change-shirt [id]="data.id" [mode]="'>'"></app-change-shirt>
