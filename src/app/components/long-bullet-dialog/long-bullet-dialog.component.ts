@@ -24,29 +24,31 @@ export class LongBulletDialogComponent {
   checkTrademark(query: string, e: Event) {
     this.upperCaseTitleAndBrand();
 
-    if ((<HTMLTextAreaElement>e.target).name == 'brand') {
-      if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
-      else if (this.clone.brand != this.data.brand) {
-        this.data.tmBrand = this.shirtService.checkTrademark(query);
-        this.clone.brand = this.data.brand;
-      }
-    } else if ((<HTMLTextAreaElement>e.target).name == 'title') {
-      if (query.length == 0) this.data.tmTitle = ['UNCHECKED'];
-      else if (this.clone.title != this.data.title) {
-        this.data.tmTitle = this.shirtService.checkTrademark(query);
-        this.clone.title = this.data.title;
-      }
-    } else if ((<HTMLTextAreaElement>e.target).name == 'bp1') {
-      if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
-      else if (this.clone.bp1 != this.data.bp1) {
-        this.data.tmBp1 = this.shirtService.checkTrademark(query);
-        this.clone.bp1 = this.data.bp1;
-      }
-    } else if ((<HTMLTextAreaElement>e.target).name == 'bp2') {
-      if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
-      else if (this.clone.bp2 != this.data.bp2) {
-        this.data.tmBp2 = this.shirtService.checkTrademark(query);
-        this.clone.bp2 = this.data.bp2;
+    if ((e as any).relatedTarget != null) {
+      if ((<HTMLTextAreaElement>e.target).name == 'brand') {
+        if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
+        else if (this.clone.brand != this.data.brand) {
+          this.data.tmBrand = this.shirtService.checkTrademark(query);
+          this.clone.brand = this.data.brand;
+        }
+      } else if ((<HTMLTextAreaElement>e.target).name == 'title') {
+        if (query.length == 0) this.data.tmTitle = ['UNCHECKED'];
+        else if (this.clone.title != this.data.title) {
+          this.data.tmTitle = this.shirtService.checkTrademark(query);
+          this.clone.title = this.data.title;
+        }
+      } else if ((<HTMLTextAreaElement>e.target).name == 'bp1') {
+        if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
+        else if (this.clone.bp1 != this.data.bp1) {
+          this.data.tmBp1 = this.shirtService.checkTrademark(query);
+          this.clone.bp1 = this.data.bp1;
+        }
+      } else if ((<HTMLTextAreaElement>e.target).name == 'bp2') {
+        if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
+        else if (this.clone.bp2 != this.data.bp2) {
+          this.data.tmBp2 = this.shirtService.checkTrademark(query);
+          this.clone.bp2 = this.data.bp2;
+        }
       }
     }
   }

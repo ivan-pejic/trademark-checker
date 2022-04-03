@@ -1,4 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  DoCheck,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
   selector: 'app-tm-check-badge',
@@ -7,6 +14,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TmCheckBadgeComponent implements OnInit {
   @Input() tms!: string[];
+  @Input() isLoading!: boolean;
   constructor() {}
 
   ngOnInit(): void {}

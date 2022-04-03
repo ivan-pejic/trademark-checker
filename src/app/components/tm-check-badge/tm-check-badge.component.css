@@ -19,4 +19,6 @@ div span {
   padding: 0 0.8em;
   float: left;
   margin-right: 0.8em;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }

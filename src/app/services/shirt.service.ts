@@ -110,9 +110,10 @@ export class ShirtService {
   saveLinks(links: string) {
     let shirtLink: string[] = links.split('\n');
     for (let link of shirtLink) {
-      this.createShirt(this.isLong);
+      link = link.replace(/^[0-9]{0,4}.\s/g, ''); //remove numbers and dots from link
+      if (link != '') this.createShirt(this.isLong);
       let len = this.shirtList.length - 1;
-      this.shirtList[len].link = link.replace(/^[0-9]{0,4}.\s/g, ''); //remove numbers and dots from link
+      this.shirtList[len].link = link;
     }
   }
 
