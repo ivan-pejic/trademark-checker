@@ -144,6 +144,6 @@ export class DocumentCreator {
         shirt.bp1[0] === 'U')
     )
       return 'that shows an ';
-    else return 'thats shows a ';
+    else return 'that shows a ';
   }
 }

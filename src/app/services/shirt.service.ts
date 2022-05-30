@@ -45,7 +45,8 @@ export class ShirtService {
   }
 
   //check if current query has any registered trademarks
-  checkTrademark(query: string): any {
+  checkTrademark(query: string): string[] {
+    //Promise<string[]> {
     //replace all dots(.) with spaces to find all trademarks
     query = query.replace(/\./g, ' ');
 
@@ -61,10 +62,10 @@ export class ShirtService {
 
         for (let result of results) {
           if (
-            result[1].length > 1 && //check if not a single char
+            //result[1].length > 1 && //check if not a single char
             result[2] === 'LIVE' && //check if tm is live
-            result[1].indexOf(' ') >= 0 && //check if its plural
-            result[3] === 'Text' //check if it's a text type
+            result[1].indexOf(' ') >= 0 //check if its plural
+            //result[3] === 'Text' //check if it's a text type
           ) {
             if (confirmedTM.indexOf(result[1]) === -1) {
               confirmedTM.push(result[1]);

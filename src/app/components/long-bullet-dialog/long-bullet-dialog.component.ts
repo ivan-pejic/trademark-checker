@@ -34,6 +34,10 @@ export class LongBulletDialogComponent {
       } else if ((<HTMLTextAreaElement>e.target).name == 'title') {
         if (query.length == 0) this.data.tmTitle = ['UNCHECKED'];
         else if (this.clone.title != this.data.title) {
+          /*this.data.tmTitle = ['LOADING...'];
+          this.shirtService.checkTrademark(query).then((res) => {
+            this.data.tmTitle = res;
+          });*/
           this.data.tmTitle = this.shirtService.checkTrademark(query);
           this.clone.title = this.data.title;
         }
@@ -63,10 +67,14 @@ export class LongBulletDialogComponent {
 
   //capitalise title and brand
   upperCaseTitleAndBrand() {
+    this.data.title = this.data.title.replace(/\s+$/, '');
+    this.data.brand = this.data.brand.replace(/\s+$/, '');
     this.data.title = this.shirtService.toUpperCase(this.data.title);
     this.data.brand = this.shirtService.toUpperCase(this.data.brand);
-    if (!this.data.isLong)
+    if (!this.data.isLong) {
+      this.data.bp1 = this.data.bp1.replace(/\s+$/, '');
       this.data.bp1 = this.shirtService.toUpperCase(this.data.bp1);
+    }
   }
 
   openDialog() {

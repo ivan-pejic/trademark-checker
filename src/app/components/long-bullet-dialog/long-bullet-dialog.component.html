@@ -5,8 +5,8 @@
   <div class="content">
     <form class="example-form" #shirtForm="ngForm">
       <h1>Shirt {{ data.id + 1 }}</h1>
-      <div class="imageWrapper" (click)="openDialog()">
-        <img [src]="data.image" *ngIf="data.image" />
+      <div class="imageWrapper" (click)="openDialog()" *ngIf="data.image">
+        <img [src]="data.image" />
       </div>
       <a [href]="data.link" target="_blank" *ngIf="data.link">Link</a>
 
