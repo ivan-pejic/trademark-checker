@@ -1,16 +1,26 @@
-div span.yellow {
+div span.yellow,
+div span.yellow a:link {
+  color: white;
   background-color: #d9d946;
+  text-decoration: none;
+  cursor: unset;
 }
 
-div span.green {
+div span.green,
+div span.green a:link {
+  color: white;
   background-color: green;
+  text-decoration: none;
+  cursor: unset;
 }
 
 div {
+  color: white;
   display: flex;
   text-align: center;
 }
-div span {
+div span,
+div span a:link {
   display: flex;
   color: white;
   font-weight: bold;
@@ -21,4 +31,6 @@ div span {
   margin-right: 0.8em;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
+  cursor: pointer;
+  text-decoration: underline;
 }

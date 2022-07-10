@@ -16,7 +16,12 @@
     </mat-tab>
     <mat-tab label="Via File">
       Via Files:
-      <input type="file" multiple (change)="onImageSelected($event)" />
+      <input
+        type="file"
+        accept="image/*"
+        multiple
+        (change)="onImageSelected($event)"
+      />
     </mat-tab>
   </mat-tab-group>
   <mat-card-actions>

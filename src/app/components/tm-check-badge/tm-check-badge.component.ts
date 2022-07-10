@@ -1,21 +1,13 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  DoCheck,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ShirtTrademark } from 'src/app/classes/shirt-trademark';
 
 @Component({
   selector: 'app-tm-check-badge',
   templateUrl: './tm-check-badge.component.html',
   styleUrls: ['./tm-check-badge.component.css'],
 })
-export class TmCheckBadgeComponent implements OnInit {
-  @Input() tms!: string[];
-  @Input() isLoading!: boolean;
-  constructor() {}
+export class TmCheckBadgeComponent {
+  @Input() tms!: ShirtTrademark;
 
-  ngOnInit(): void {}
+  constructor() {}
 }

@@ -28,7 +28,6 @@ export class OptionsListComponent implements OnInit {
   }
 
   setLong() {
-    this.isLong = !this.isLong;
-    this.shirtService.setLong();
+    this.isLong = this.shirtService.setLong();
   }
 }

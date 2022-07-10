@@ -1,0 +1,11 @@
+<textarea
+  class="keywords"
+  matInput
+  ngModel
+  #keywords="ngModel"
+  placeholder="Insert keywords(s)"
+  cdkTextareaAutosize
+></textarea>
+<div>
+  <button matButton (click)="saveKeywords(keywords.value)">Save</button>
+</div>

@@ -7,6 +7,8 @@ import { Packer } from 'docx';
 import * as fs from 'file-saver';
 import { DocumentCreator } from './docxGenerator/docxGenerator';
 import { BehaviorSubject } from 'rxjs';
+import { Shirt } from '../classes/shirt';
+import { ShirtTrademark } from '../classes/shirt-trademark';
 
 @Injectable({
   providedIn: 'root',
@@ -45,13 +47,13 @@ export class ShirtService {
   }
 
   //check if current query has any registered trademarks
-  checkTrademark(query: string): string[] {
-    //Promise<string[]> {
+  async checkTrademark(query: string): //string[] {
+  Promise<ShirtTrademark> {
     //replace all dots(.) with spaces to find all trademarks
     query = query.replace(/\./g, ' ');
 
-    var results!: any;
-    var confirmedTM: string[] = [];
+    let results!: any;
+    let confirmedTM: ShirtTrademark = new ShirtTrademark();
 
     const body = `query=${query}`;
 
@@ -62,18 +64,18 @@ export class ShirtService {
 
         for (let result of results) {
           if (
-            //result[1].length > 1 && //check if not a single char
             result[2] === 'LIVE' && //check if tm is live
             result[1].indexOf(' ') >= 0 //check if its plural
-            //result[3] === 'Text' //check if it's a text type
           ) {
-            if (confirmedTM.indexOf(result[1]) === -1) {
-              confirmedTM.push(result[1]);
-            }
+            confirmedTM.trademarkName.push(result[1]);
+            confirmedTM.trademarkSerial.push(result[0]);
           }
         }
-        if (confirmedTM.length == 0) confirmedTM.push('CHECK PASSED');
+        if (confirmedTM.trademarkName.length == 0) {
+          confirmedTM.trademarkName.push('CHECK PASSED');
+        }
       });
+    confirmedTM.trademarkName.shift();
     return confirmedTM;
   }
 
@@ -89,20 +91,8 @@ export class ShirtService {
   }
 
   //add new empty shirt to array and let listeners know its there
-  createShirt(isLong: boolean) {
-    this.shirtList.push({
-      id: this.shirtList.length,
-      title: '',
-      brand: '',
-      bp1: '',
-      bp2: '',
-      isLong: isLong,
-      isText: true,
-      tmBrand: ['UNCHECKED'],
-      tmTitle: ['UNCHECKED'],
-      tmBp1: ['UNCHECKED'],
-      tmBp2: ['UNCHECKED'],
-    });
+  createShirt(isLong: boolean, link?: string) {
+    this.shirtList.push(new Shirt(this.shirtList.length, isLong, link));
     this.generateBullets(this.shirtList.length - 1);
     this.shirtSubject.next(this.shirtList);
   }
@@ -111,10 +101,10 @@ export class ShirtService {
   saveLinks(links: string) {
     let shirtLink: string[] = links.split('\n');
     for (let link of shirtLink) {
-      link = link.replace(/^[0-9]{0,4}.\s/g, ''); //remove numbers and dots from link
-      if (link != '') this.createShirt(this.isLong);
-      let len = this.shirtList.length - 1;
-      this.shirtList[len].link = link;
+      if (link != '') {
+        link = link.replace(/^[0-9]{0,4}.\s/g, ''); //remove numbers and dots from link
+        this.createShirt(this.isLong, link);
+      }
     }
   }
 
@@ -122,33 +112,25 @@ export class ShirtService {
   saveImages(image: File) {
     let len = this.shirtList.length;
     this.createShirt(this.isLong);
-    var reader = new FileReader();
+    let reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onload = (_event) => {
       this.shirtList[len].image = reader.result;
     };
   }
 
-  //regex to capitalise word
-  toUpperCase(query: string): string {
-    //(^\w)|(\s+\w)
-    return query.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
-      letter.toUpperCase()
-    );
-  }
-
   //invert isLong
-  setLong() {
+  setLong(): boolean {
     this.isLong = !this.isLong;
+    return this.isLong;
   }
 
   //export saved shirts to word file
   exportAsWord() {
-    const documentCreator = new DocumentCreator();
-    const doc = documentCreator.create(this.shirtList);
+    const doc = new DocumentCreator().create(this.shirtList);
 
     Packer.toBlob(doc).then((buffer) => {
-      fs.saveAs(buffer, formatDate(new Date(), 'ddMMYY', 'en'));
+      fs.saveAs(buffer, formatDate(new Date(), 'ddMMYY', 'en') + '.docx');
     });
 
     const longShirts = this.shirtList.filter(

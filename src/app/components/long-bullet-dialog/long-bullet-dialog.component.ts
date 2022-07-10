@@ -1,10 +1,15 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ShirtForm } from 'src/app/interfaces/shirt-form';
+import { Component, Inject } from '@angular/core';
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialog,
+} from '@angular/material/dialog';
 import { ShirtService } from 'src/app/services/shirt.service';
+import { ShirtTrademark } from 'src/app/classes/shirt-trademark';
 
-import { MatDialog } from '@angular/material/dialog';
 import { ImageZoomComponent } from '../image-zoom/image-zoom.component';
+import { Shirt } from 'src/app/classes/shirt';
+import { TrademarkObject } from 'src/app/interfaces/trademark-object';
 
 @Component({
   selector: 'app-long-bullet-dialog',
@@ -13,73 +18,55 @@ import { ImageZoomComponent } from '../image-zoom/image-zoom.component';
 })
 export class LongBulletDialogComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: ShirtForm,
+    @Inject(MAT_DIALOG_DATA) public shirt: Shirt,
     private shirtService: ShirtService,
     public dialogRef: MatDialogRef<LongBulletDialogComponent>,
     public dialog: MatDialog
   ) {}
 
-  clone = Object.assign({}, this.data);
+  clone = Object.assign({}, this.shirt);
 
+  //                                     //
+  // @TODO REMOVE CLONE GO WITH ONCHANGE //
+  //                                     //
   checkTrademark(query: string, e: Event) {
-    this.upperCaseTitleAndBrand();
-
+    console.log(e);
     if ((e as any).relatedTarget != null) {
-      if ((<HTMLTextAreaElement>e.target).name == 'brand') {
-        if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
-        else if (this.clone.brand != this.data.brand) {
-          this.data.tmBrand = this.shirtService.checkTrademark(query);
-          this.clone.brand = this.data.brand;
-        }
-      } else if ((<HTMLTextAreaElement>e.target).name == 'title') {
-        if (query.length == 0) this.data.tmTitle = ['UNCHECKED'];
-        else if (this.clone.title != this.data.title) {
-          /*this.data.tmTitle = ['LOADING...'];
-          this.shirtService.checkTrademark(query).then((res) => {
-            this.data.tmTitle = res;
-          });*/
-          this.data.tmTitle = this.shirtService.checkTrademark(query);
-          this.clone.title = this.data.title;
-        }
-      } else if ((<HTMLTextAreaElement>e.target).name == 'bp1') {
-        if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
-        else if (this.clone.bp1 != this.data.bp1) {
-          this.data.tmBp1 = this.shirtService.checkTrademark(query);
-          this.clone.bp1 = this.data.bp1;
-        }
-      } else if ((<HTMLTextAreaElement>e.target).name == 'bp2') {
-        if (query.length == 0) this.data.tmBrand = ['UNCHECKED'];
-        else if (this.clone.bp2 != this.data.bp2) {
-          this.data.tmBp2 = this.shirtService.checkTrademark(query);
-          this.clone.bp2 = this.data.bp2;
-        }
-      }
+      this.shirt.prepare();
+      const target = (<HTMLTextAreaElement>e.target).name as keyof Shirt;
+      const trademark = (<HTMLTextAreaElement>e.target)
+        .name as keyof TrademarkObject;
+
+      if (query.length == 0)
+        this.shirt.trademarks[target as keyof TrademarkObject].trademarkName = [
+          'UNCHECKED',
+        ];
+      else if (this.clone[target] != this.shirt[target])
+        this.shirtService
+          .checkTrademark(query)
+          .then((response: ShirtTrademark) => {
+            this.shirt.trademarks[trademark].trademarkName =
+              response.trademarkName;
+            this.shirt.trademarks[trademark].trademarkSerial =
+              response.trademarkSerial;
+
+            this.clone.trademarks[target as keyof TrademarkObject] =
+              this.shirt.trademarks[target as keyof TrademarkObject];
+          });
     }
   }
 
   changeType() {
-    this.shirtService.changeType(this.data.id);
+    this.shirtService.changeType(this.shirt.id);
   }
 
   checkLength(query: string): boolean {
-    return this.shirtService.checkLength(this.data.id, query);
-  }
-
-  //capitalise title and brand
-  upperCaseTitleAndBrand() {
-    this.data.title = this.data.title.replace(/\s+$/, '');
-    this.data.brand = this.data.brand.replace(/\s+$/, '');
-    this.data.title = this.shirtService.toUpperCase(this.data.title);
-    this.data.brand = this.shirtService.toUpperCase(this.data.brand);
-    if (!this.data.isLong) {
-      this.data.bp1 = this.data.bp1.replace(/\s+$/, '');
-      this.data.bp1 = this.shirtService.toUpperCase(this.data.bp1);
-    }
+    return this.shirtService.checkLength(this.shirt.id, query);
   }
 
   openDialog() {
     this.dialog.open(ImageZoomComponent, {
-      data: this.data,
+      data: this.shirt,
     });
   }
 }

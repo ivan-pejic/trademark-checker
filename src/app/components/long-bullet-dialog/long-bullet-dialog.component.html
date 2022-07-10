@@ -1,27 +1,27 @@
 <div class="wrapper">
   <div class="leftArrow">
-    <app-change-shirt [id]="data.id" [mode]="'<'"></app-change-shirt>
+    <app-change-shirt [id]="shirt.id" [mode]="'<'"></app-change-shirt>
   </div>
   <div class="content">
     <form class="example-form" #shirtForm="ngForm">
-      <h1>Shirt {{ data.id + 1 }}</h1>
-      <div class="imageWrapper" (click)="openDialog()" *ngIf="data.image">
-        <img [src]="data.image" />
+      <h1>Shirt {{ shirt.id + 1 }}</h1>
+      <div class="imageWrapper" (click)="openDialog()" *ngIf="shirt.image">
+        <img [src]="shirt.image" />
       </div>
-      <a [href]="data.link" target="_blank" *ngIf="data.link">Link</a>
+      <a [href]="shirt.link" target="_blank" *ngIf="shirt.link">Link</a>
 
-      <div *ngIf="!data.isLong">
+      <div *ngIf="!shirt.isLong">
         <mat-slide-toggle
-          [(ngModel)]="data.isText"
+          [(ngModel)]="shirt.isText"
           name="isText"
           color="primary"
-          >{{ data.isText === true ? "Text" : "Picture" }}</mat-slide-toggle
+          >{{ shirt.isText === true ? "Text" : "Picture" }}</mat-slide-toggle
         >
       </div>
       <div>
         <h3>Brand:</h3>
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>{{ data.brand.length }}/50</mat-label>
+          <mat-label>{{ shirt.brand.length }}/50</mat-label>
           <textarea
             name="brand"
             ngModel
@@ -30,15 +30,15 @@
             cdkTextareaAutosize
             cdkAutosizeMaxRows="1"
             maxlength="256"
-            (focusout)="checkTrademark(data.brand, $event)"
-            [(ngModel)]="data.brand"
+            (focusout)="checkTrademark(shirt.brand, $event)"
+            [(ngModel)]="shirt.brand"
           ></textarea>
         </mat-form-field>
-        <app-tm-check-badge [tms]="data.tmBrand"></app-tm-check-badge>
+        <app-tm-check-badge [tms]="shirt.trademarks.brand"></app-tm-check-badge>
 
         <h3>Title:</h3>
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>{{ data.title.length }}/60</mat-label>
+          <mat-label>{{ shirt.title.length }}/60</mat-label>
           <textarea
             name="title"
             ngModel
@@ -47,15 +47,15 @@
             cdkTextareaAutosize
             cdkAutosizeMaxRows="1"
             maxlength="256"
-            (focusout)="checkTrademark(data.title, $event)"
-            [(ngModel)]="data.title"
+            (focusout)="checkTrademark(shirt.title, $event)"
+            [(ngModel)]="shirt.title"
           ></textarea>
         </mat-form-field>
-        <app-tm-check-badge [tms]="data.tmTitle"></app-tm-check-badge>
+        <app-tm-check-badge [tms]="shirt.trademarks.title"></app-tm-check-badge>
 
         <h3>BP1:</h3>
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>{{ data.bp1.length }}/256</mat-label>
+          <mat-label>{{ shirt.bp1.length }}/256</mat-label>
           <textarea
             name="bp1"
             ngModel
@@ -65,15 +65,15 @@
             cdkAutosizeMinRows="4"
             cdkAutosizeMaxRows="4"
             maxlength="356"
-            (focusout)="checkTrademark(data.bp1, $event)"
-            [(ngModel)]="data.bp1"
+            (focusout)="checkTrademark(shirt.bp1, $event)"
+            [(ngModel)]="shirt.bp1"
           ></textarea>
         </mat-form-field>
-        <app-tm-check-badge [tms]="data.tmBp1"></app-tm-check-badge>
+        <app-tm-check-badge [tms]="shirt.trademarks.bp1"></app-tm-check-badge>
 
         <h3>BP2:</h3>
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>{{ data.bp2.length }}/256</mat-label>
+          <mat-label>{{ shirt.bp2.length }}/256</mat-label>
           <textarea
             name="bp2"
             ngModel
@@ -83,11 +83,11 @@
             cdkAutosizeMinRows="4"
             cdkAutosizeMaxRows="4"
             maxlength="356"
-            (focusout)="checkTrademark(data.bp2, $event)"
-            [(ngModel)]="data.bp2"
+            (focusout)="checkTrademark(shirt.bp2, $event)"
+            [(ngModel)]="shirt.bp2"
           ></textarea>
         </mat-form-field>
-        <app-tm-check-badge [tms]="data.tmBp2"></app-tm-check-badge>
+        <app-tm-check-badge [tms]="shirt.trademarks.bp2"></app-tm-check-badge>
       </div>
     </form>
     <button mat-raised-button color="accent" (click)="changeType()">
@@ -95,7 +95,7 @@
     </button>
   </div>
   <div class="rightArrow">
-    <app-change-shirt [id]="data.id" [mode]="'>'"></app-change-shirt>
+    <app-change-shirt [id]="shirt.id" [mode]="'>'"></app-change-shirt>
   </div>
 </div>
 <!---<button mat-button (click)="checkTrademark(shirtForm.value)">

@@ -1,3 +1,5 @@
+import { ShirtTrademark } from '../classes/shirt-trademark';
+
 export interface ShirtForm {
   id: number;
   brand: string;
@@ -8,8 +10,8 @@ export interface ShirtForm {
   isLong: boolean;
   isText?: boolean;
   image?: any;
-  tmBrand: string[];
-  tmTitle: string[];
-  tmBp1: string[];
-  tmBp2: string[];
+  tmBrand?: ShirtTrademark;
+  tmTitle?: ShirtTrademark;
+  tmBp1?: ShirtTrademark;
+  tmBp2?: ShirtTrademark;
 }

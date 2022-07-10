@@ -1,10 +1,23 @@
 <div>
   <span
-    *ngFor="let tm of this.tms"
+    *ngFor="let tm of this.tms.trademarkName; let i = index"
     [ngClass]="{
       yellow: tm == 'UNCHECKED',
       green: tm == 'CHECK PASSED'
     }"
-    >{{ tm }}</span
+  >
+    <ng-template
+      *ngIf="tm != 'UNCHECKED' && tm != 'CHECK PASSED'; then link; else noLink"
+    ></ng-template>
+    <ng-template #link
+      ><a
+        target="_blank"
+        href="https://tsdr.uspto.gov/#caseNumber={{
+          tms.trademarkSerial[i]
+        }}&caseType=SERIAL_NO&searchType=statusSearch"
+        >{{ tm }}</a
+      ></ng-template
+    >
+    <ng-template #noLink>{{ tm }}</ng-template></span
   >
 </div>

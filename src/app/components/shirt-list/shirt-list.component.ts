@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ShirtService } from 'src/app/services/shirt.service';
 import { ShirtForm } from 'src/app/interfaces/shirt-form';
 import { Subscription } from 'rxjs';
+import { Shirt } from 'src/app/classes/shirt';
 
 @Component({
   selector: 'app-shirt-list',
