@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ShirtForm } from 'src/app/interfaces/shirt-form';
 
 import { MatDialog } from '@angular/material/dialog';
+import { Shirt } from 'src/app/classes/shirt';
 
 @Component({
   selector: 'app-image-zoom',
@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ImageZoomComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: ShirtForm,
+    @Inject(MAT_DIALOG_DATA) public data: Shirt,
     public dialogRef: MatDialogRef<ImageZoomComponent>,
     public dialog: MatDialog
   ) {}

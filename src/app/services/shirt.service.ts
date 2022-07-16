@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ShirtForm } from '../interfaces/shirt-form';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { formatDate } from '@angular/common';
 
@@ -8,7 +7,7 @@ import * as fs from 'file-saver';
 import { DocumentCreator } from './docxGenerator/docxGenerator';
 import { BehaviorSubject } from 'rxjs';
 import { Shirt } from '../classes/shirt';
-import { ShirtTrademark } from '../classes/shirt-trademark';
+import { Trademark } from '../classes/trademark';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +15,9 @@ import { ShirtTrademark } from '../classes/shirt-trademark';
 export class ShirtService {
   constructor(private http: HttpClient) {}
 
-  shirtList: ShirtForm[] = [];
+  shirtList: Shirt[] = [];
 
-  shirtSubject = new BehaviorSubject<ShirtForm[]>([]);
+  shirtSubject = new BehaviorSubject<Shirt[]>([]);
 
   isLong: boolean = true;
 
@@ -48,12 +47,12 @@ export class ShirtService {
 
   //check if current query has any registered trademarks
   async checkTrademark(query: string): //string[] {
-  Promise<ShirtTrademark> {
+  Promise<Trademark> {
     //replace all dots(.) with spaces to find all trademarks
     query = query.replace(/\./g, ' ');
 
     let results!: any;
-    let confirmedTM: ShirtTrademark = new ShirtTrademark();
+    let confirmedTM: Trademark = new Trademark();
 
     const body = `query=${query}`;
 
@@ -86,7 +85,7 @@ export class ShirtService {
   }
 
   //edit array to save filled shirt information
-  saveShirt(shirt: ShirtForm) {
+  saveShirt(shirt: Shirt) {
     this.shirtList[shirt.id] = shirt;
   }
 

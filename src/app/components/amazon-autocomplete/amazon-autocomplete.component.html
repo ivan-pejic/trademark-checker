@@ -1,0 +1,23 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <input
+      type="text"
+      name="search"
+      matInput
+      placeholder="Search Amazon keywords"
+      #text
+      [(ngModel)]="query"
+      [matAutocomplete]="auto"
+    />
+    <mat-icon matPrefix>search</mat-icon>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      class="max-height-panel"
+      classList="max-height-panel"
+    >
+      <mat-option *ngFor="let option of suggestions" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

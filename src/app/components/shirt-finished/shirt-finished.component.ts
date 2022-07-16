@@ -1,5 +1,5 @@
 import { Component, Input, DoCheck } from '@angular/core';
-import { ShirtForm } from 'src/app/interfaces/shirt-form';
+import { Shirt } from 'src/app/classes/shirt';
 
 @Component({
   selector: 'app-shirt-finished',
@@ -9,7 +9,7 @@ import { ShirtForm } from 'src/app/interfaces/shirt-form';
 export class ShirtFinishedComponent implements DoCheck {
   constructor() {}
 
-  @Input() shirt!: ShirtForm;
+  @Input() shirt!: Shirt;
   ngDoCheck() {
     this.setFinished();
   }

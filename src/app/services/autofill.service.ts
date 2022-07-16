@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
 import { ShirtAutofill } from '../classes/shirt-autofill';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AutofillService {
-  constructor(private titlecasePipe: TitleCasePipe) {}
+  constructor() {}
 
-  keywords!: string;
+  keywords: string = '';
 
   generateShirt(shirtText: string): ShirtAutofill {
     shirtText = shirtText.trim();
-    let shirt = new ShirtAutofill('', shirtText + ' - ');
+    let shirt = new ShirtAutofill(shirtText);
     let rand = Math.random();
     if (rand <= 0.6) shirt.title += 'Funny ';
     else if (rand > 0.6 && rand <= 0.88) shirt.brand = 'Funny ';
@@ -44,7 +43,6 @@ export class AutofillService {
     }
 
     shirt.prepare();
-    if (shirt.brand.length <= 45) shirt.brand += ' Gift';
 
     return shirt;
   }

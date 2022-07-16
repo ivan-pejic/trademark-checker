@@ -12,7 +12,9 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +31,7 @@ import { ImageZoomComponent } from './components/image-zoom/image-zoom.component
 import { TmCheckBadgeComponent } from './components/tm-check-badge/tm-check-badge.component';
 import { AutofillComponent } from './components/autofill/autofill.component';
 import { AutofillKeywordsComponent } from './components/autofill-keywords/autofill-keywords.component';
+import { AmazonAutocompleteComponent } from './components/amazon-autocomplete/amazon-autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import { AutofillKeywordsComponent } from './components/autofill-keywords/autofi
     TmCheckBadgeComponent,
     AutofillComponent,
     AutofillKeywordsComponent,
+    AmazonAutocompleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +64,8 @@ import { AutofillKeywordsComponent } from './components/autofill-keywords/autofi
     MatDialogModule,
     MatTabsModule,
     MatSlideToggleModule,
+    MatAutocompleteModule,
+    MatIconModule,
   ],
   providers: [
     {

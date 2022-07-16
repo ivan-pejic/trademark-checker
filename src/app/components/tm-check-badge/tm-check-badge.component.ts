@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ShirtTrademark } from 'src/app/classes/shirt-trademark';
+import { Trademark } from 'src/app/classes/trademark';
 
 @Component({
   selector: 'app-tm-check-badge',
@@ -7,7 +7,7 @@ import { ShirtTrademark } from 'src/app/classes/shirt-trademark';
   styleUrls: ['./tm-check-badge.component.css'],
 })
 export class TmCheckBadgeComponent {
-  @Input() tms!: ShirtTrademark;
+  @Input() tms!: Trademark;
 
   constructor() {}
 }

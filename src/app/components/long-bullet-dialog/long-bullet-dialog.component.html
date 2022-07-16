@@ -3,6 +3,7 @@
     <app-change-shirt [id]="shirt.id" [mode]="'<'"></app-change-shirt>
   </div>
   <div class="content">
+    <app-amazon-autocomplete></app-amazon-autocomplete>
     <form class="example-form" #shirtForm="ngForm">
       <h1>Shirt {{ shirt.id + 1 }}</h1>
       <div class="imageWrapper" (click)="openDialog()" *ngIf="shirt.image">
@@ -23,6 +24,7 @@
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>{{ shirt.brand.length }}/50</mat-label>
           <textarea
+            cdkFocusInitial
             name="brand"
             ngModel
             matInput

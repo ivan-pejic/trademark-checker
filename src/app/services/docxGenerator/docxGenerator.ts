@@ -1,8 +1,8 @@
 import { Document, Paragraph, Spacing, TextRun } from 'docx';
-import { ShirtForm } from 'src/app/interfaces/shirt-form';
+import { Shirt } from 'src/app/classes/shirt';
 
 export class DocumentCreator {
-  public create(saveShirts: ShirtForm[]): Document {
+  public create(saveShirts: Shirt[]): Document {
     let doc = new Paragraph({ style: 'Calibri' });
 
     for (let shirt of saveShirts) {
@@ -35,7 +35,7 @@ export class DocumentCreator {
     return document;
   }
 
-  public createShirtBullet(shirt: ShirtForm): TextRun {
+  public createShirtBullet(shirt: Shirt): TextRun {
     if (shirt.isLong)
       return new TextRun({
         children: [
@@ -96,7 +96,7 @@ export class DocumentCreator {
       });
   }
 
-  description(shirt: ShirtForm) {
+  description(shirt: Shirt) {
     var BpArray: string[] = [];
     var topDescription: string = '';
     var bottomDescription: string = '';
@@ -133,7 +133,7 @@ export class DocumentCreator {
     }
   }
 
-  isText(shirt: ShirtForm): string {
+  isText(shirt: Shirt): string {
     if (shirt.isText) return "that reads: ' ";
     else if (
       !shirt.isText &&

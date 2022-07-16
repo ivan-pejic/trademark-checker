@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LongBulletDialogComponent } from '../long-bullet-dialog/long-bullet-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ShirtService } from 'src/app/services/shirt.service';
-import { ShirtForm } from 'src/app/interfaces/shirt-form';
 import { Subscription } from 'rxjs';
 import { Shirt } from 'src/app/classes/shirt';
 
@@ -14,12 +13,12 @@ import { Shirt } from 'src/app/classes/shirt';
 export class ShirtListComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog, public shirtService: ShirtService) {}
 
-  shirts: ShirtForm[] = [];
+  shirts: Shirt[] = [];
   private shirtSub!: Subscription;
 
   ngOnInit(): void {
     this.shirtSub = this.shirtService.shirtSubject.subscribe(
-      (response: ShirtForm[]) => (this.shirts = response)
+      (response: Shirt[]) => (this.shirts = response)
     );
   }
 

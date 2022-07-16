@@ -1,5 +1,5 @@
-import { ShirtTrademark } from './shirt-trademark';
-import { TrademarkObject } from '../interfaces/trademark-object';
+import { Trademark } from './trademark';
+import { Trademarks } from '../interfaces/trademarks';
 
 export class Shirt {
   constructor(id: number, isLong: boolean, link?: string) {
@@ -12,20 +12,17 @@ export class Shirt {
   title: string = '';
   bp1: string = '';
   bp2: string = '';
+  isLong: boolean;
   link?: string;
-  isLong!: boolean;
+  linkHint?: string;
   isText?: boolean;
   image?: any;
-  trademarks: TrademarkObject = {
-    brand: new ShirtTrademark(),
-    title: new ShirtTrademark(),
-    bp1: new ShirtTrademark(),
-    bp2: new ShirtTrademark(),
+  trademarks: Trademarks = {
+    brand: new Trademark(),
+    title: new Trademark(),
+    bp1: new Trademark(),
+    bp2: new Trademark(),
   };
-  // tmBrand: ShirtTrademark = new ShirtTrademark();
-  // tmTitle: ShirtTrademark = new ShirtTrademark();
-  // tmBp1: ShirtTrademark = new ShirtTrademark();
-  // tmBp2: ShirtTrademark = new ShirtTrademark();
 
   public prepare(): void {
     this.brand = this.toUpper(this.brand);
