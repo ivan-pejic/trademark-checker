@@ -1,21 +1,22 @@
-<div>
-  <button matButton (click)="openDialog()">Add Keywords</button>
-  <input type="checkbox" />
-</div>
-<div>
-  <input type="text" class="shirtText" matInput #shirtText />
-  <button matButton (click)="generateBrandAndTitle(shirtText.value)">
-    Add
-  </button>
-</div>
-<div class="shirtExample" *ngFor="let shirt of this.shirts">
-  <p>
-    {{ shirt.brand }} {{ shirt.brand.length
-    }}<button (click)="copy(shirt.brand)">Copy</button>
-  </p>
-  <p>
-    {{ shirt.title }} {{ shirt.title.length
-    }}<button (click)="copy(shirt.title)">Copy</button>
-  </p>
-  <hr />
-</div>
+  <div style="display: flex; flex-direction: column; gap: 1rem">
+    <div>
+      <button matButton (click)="openDialog()">Add Keywords</button>
+    </div>
+    <div>
+      <input type="text" class="shirtText" matInput #shirtText />
+      <button matButton (click)="generateBrandAndTitle(shirtText.value)">
+        Add
+      </button>
+    </div>
+    <div class="shirtExample" *ngFor="let shirt of this.shirts">
+      <p>
+        {{ shirt.brand }} {{ shirt.brand.length
+        }}<button (click)="copy(shirt.brand)">Copy</button>
+      </p>
+      <p>
+        {{ shirt.title }} {{ shirt.title.length
+        }}<button (click)="copy(shirt.title)">Copy</button>
+      </p>
+      <hr />
+    </div>
+  </div>

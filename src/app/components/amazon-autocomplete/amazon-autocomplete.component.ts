@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   AfterViewInit,
   Component,
@@ -24,15 +24,22 @@ export class AmazonAutocompleteComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
+
   ngAfterViewInit(): void {
     this.sub = fromEvent(this.search.nativeElement, 'keyup')
       .pipe(debounceTime(500))
       .subscribe(() => {
         if (this.query.length > 0)
-          this.http.get(`/amazon/${this.query}`).subscribe((response) => {
-            this.suggestions = response;
-            [, this.suggestions] = this.suggestions;
-          });
+          //this.http.get(`/amazon/${this.query}`).subscribe((response) => {
+          this.http
+            .get(
+              //`https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q=/${this.query}`,
+              `/amazon/?query=${this.query}`
+            )
+            .subscribe((response) => {
+              this.suggestions = response;
+              [, this.suggestions] = this.suggestions;
+            });
         else this.suggestions = [];
       });
   }
